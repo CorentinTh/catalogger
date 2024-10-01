@@ -1,0 +1,61 @@
+{
+  "name": "@corentinth/catalogger",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Find pnpm catalog candidates in your monorepos",
+  "author": "Corentin Thomasset <corentinth@proton.me> (https://corentin.tech)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CorentinTh/catalogger"
+  },
+  "keywords": [
+    "pnpm",
+    "monorepo",
+    "catalog",
+    "catalogs",
+    "workspace",
+    "workspaces",
+    "dependencies",
+    "devDependencies"
+  ],
+  "main": "./dist/cli.cjs",
+  "module": "./dist/cli.mjs",
+  "bin": {
+    "catalogger": "./bin/catalogger.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "release": "bumpp --commit --push --tag && npm publish",
+    "dev": "tsx src/cli.ts",
+    "build": "unbuild",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "pnpm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "citty": "^0.1.6",
+    "lodash-es": "^4.17.21",
+    "picocolors": "^1.1.0",
+    "semver": "^7.6.3",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.6.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.5.4",
+    "@vitest/coverage-v8": "^2.0.5",
+    "bumpp": "^9.5.2",
+    "eslint": "^9.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.0.5"
+  }
+}
