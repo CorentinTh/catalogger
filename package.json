@@ -1,7 +1,7 @@
 {
   "name": "@corentinth/catalogger",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find pnpm catalog candidates in your monorepos",
   "author": "Corentin Thomasset <corentinth@proton.me> (https://corentin.tech)",
   "license": "MIT",
