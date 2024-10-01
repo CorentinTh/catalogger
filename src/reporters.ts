@@ -10,6 +10,10 @@ function reportAsJson({ dependenciesDetails }: { dependenciesDetails: Dependency
 }
 
 function reportAsText({ dependenciesDetails }: { dependenciesDetails: DependencyPresenceDetails[] }) {
+  if (dependenciesDetails.length === 0) {
+    return console.log('No dependencies found for pnpm catalog.');
+  }
+
   console.log(`\n${`Found ${dependenciesDetails.length} dependencies in more than one package:`}\n`);
   console.log(dependenciesDetails.map(({ dependencyName, packages }) => `${pc.green(pc.bold(dependencyName))} in ${packages.length} packages (${sumBy(packages, ({ isDevDependency }) => isDevDependency ? 0 : 1)} deps, ${sumBy(packages, ({ isDevDependency }) => isDevDependency ? 1 : 0)} devDeps) version ${uniqBy(packages, 'version').map(({ version }) => pc.bold(pc.blue(version))).join(', ')}`).join('\n'));
 
