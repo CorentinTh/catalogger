@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { DependencyPresenceDetails, PackageDependency } from './types';
+import type { DependencyPresenceDetails } from './types';
 import { sumBy, uniqBy } from 'lodash-es';
 import pc from 'picocolors';
 
