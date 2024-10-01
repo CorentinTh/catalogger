@@ -29,6 +29,10 @@ More options are available, you can see them by running:
 catalogger --help
 ```
 
+## Under the hood
+
+Its basically a groupBy around the `pnpm -r list --json` command, with some filtering and sorting.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
