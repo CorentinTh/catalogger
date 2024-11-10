@@ -2,6 +2,7 @@ import { cwd as getCwd } from 'node:process';
 import { defineCommand, runMain } from 'citty';
 import { getPackagesByDependencies } from './catalogger';
 import { reportAsJson, reportAsText } from './reporters';
+import { updateDependencies } from './updaters';
 
 const main = defineCommand({
   meta: {
@@ -16,6 +17,13 @@ const main = defineCommand({
       default: false,
       valueHint: 'boolean',
     },
+    update: {
+      type: 'boolean',
+      description: 'Update packages versions and workspace file',
+      alias: ['u'],
+      default: false,
+      valueHint: 'boolean',
+    },
     cwd: {
       type: 'positional',
       description: 'Current working directory',
@@ -24,15 +32,19 @@ const main = defineCommand({
     },
   },
   run: async ({ args }) => {
-    const { json: outputAsJson, cwd = getCwd() } = args;
+    const { json: outputAsJson, update: shouldUpdate, cwd = getCwd() } = args;
 
     const dependenciesDetails = await getPackagesByDependencies({ cwd });
+
+    if (shouldUpdate) {
+      await updateDependencies({ dependenciesDetails, cwd });
+    }
 
     if (outputAsJson) {
       return reportAsJson({ dependenciesDetails });
     }
 
-    reportAsText({ dependenciesDetails });
+    reportAsText({ dependenciesDetails, shouldUpdate });
   },
 });
 
