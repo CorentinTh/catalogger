@@ -22,11 +22,18 @@ const main = defineCommand({
       valueHint: 'string',
       required: false,
     },
+    filter: {
+      type: 'string',
+      description: 'Filter by project names (pnpm filter)',
+      alias: ['F'],
+      valueHint: 'string',
+      required: false,
+    },
   },
   run: async ({ args }) => {
-    const { json: outputAsJson, cwd = getCwd() } = args;
+    const { json: outputAsJson, cwd = getCwd(), filter } = args;
 
-    const dependenciesDetails = await getPackagesByDependencies({ cwd });
+    const dependenciesDetails = await getPackagesByDependencies({ cwd, filter });
 
     if (outputAsJson) {
       return reportAsJson({ dependenciesDetails });
