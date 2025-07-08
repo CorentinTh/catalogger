@@ -7,8 +7,13 @@ import semver from 'semver';
 
 const execAsync = promisify(exec);
 
-export async function getPackagesByDependencies({ cwd = getCwd() }: { cwd?: string } = { }) {
-  const { stdout } = await execAsync('pnpm -r ls --json', { cwd });
+export async function getPackagesByDependencies({ cwd = getCwd(), filter = null }: { cwd?: string; filter?: string } = { }) {
+  if (filter) {
+    // eslint-disable-next-line no-console
+    console.log(`\n${`Filtering by packages: ${filter}`}\n`);
+  }
+
+  const { stdout } = await execAsync(`pnpm ${filter ? `-F "${filter}"` : ''} -r ls --json`, { cwd });
   const packagesDeps = JSON.parse(stdout);
 
   const dependenciesByPackages: DependencyPresenceDetails[] = chain(packagesDeps)
